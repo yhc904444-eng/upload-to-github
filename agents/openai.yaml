@@ -1,4 +1,4 @@
 interface:
-  display_name: "Windows GitHub Release"
-  short_description: "Publish Windows apps and verify GitHub release assets"
-  default_prompt: "Use $windows-github-release to publish this Windows application to the specified GitHub repository, handle Chrome device authorization if needed, and verify the source code and downloadable release assets."
+  display_name: "Windows GitHub and npm Release"
+  short_description: "Publish Windows apps to GitHub and npm; verify downloads"
+  default_prompt: "Use $windows-github-release to publish this Windows application to GitHub and provide npm installation, handle Chrome authorization, and verify the published releases and downloads."

@@ -3,10 +3,12 @@
 /release/
 /artifacts/
 *.zip
+*.tgz
 
 # Local credentials and application data
 .env
 .env.*
+.npmrc
 *.pem
 *.key
 UserData/

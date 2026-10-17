@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.0 - 2026-10-17
+
+- Add an npm distribution runbook for package manifests, TGZ preparation, and integrity checks.
+- Document separate npm web login, publishing verification, 2FA, and bounded recovery.
+- Require explicit npm publication scope and anonymous installation checks without inherited credentials.
+- Cover persistent user data, launcher validation, and clearly labeled GitHub-hosted TGZ downloads.
+- Extend the English README, skill metadata, and generic Windows example for npm distribution.
+- Preserve the existing GitHub workflow and official device-page helper.
+
 ## v1.0.0 - 2026-10-17
 
 - Publish the Windows GitHub release workflow as a standalone agent skill.

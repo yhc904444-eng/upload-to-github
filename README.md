@@ -1,6 +1,6 @@
 # Windows GitHub Release
 
-An agent skill for publishing Windows application source code and downloadable releases to GitHub, with Chrome device authorization, careful packaging, and verification of the published result.
+An agent skill for publishing Windows application source code and downloadable releases to GitHub, with optional npm distribution, Chrome authorization, careful packaging, and verification of downloads and installation.
 
 The skill guides an agent through an existing project's release process. It reuses the project's build and test commands and keeps local user data and credentials out of published files.
 
@@ -12,6 +12,9 @@ The skill guides an agent through an existing project's release process. It reus
 - Commit reviewed files, push a version tag, and create a GitHub Release.
 - Read back the remote commit, tag, release metadata, and asset SHA256 digest.
 - Resume a partially completed release without overwriting existing assets or repeating successful steps.
+- Package Windows applications as tested npm tarballs when npm distribution is requested.
+- Handle separate npm web login and publishing verification, with the user completing identity checks and 2FA.
+- Compare registry integrity metadata and verify installation without inherited credentials.
 
 ## Requirements
 
@@ -20,6 +23,7 @@ The skill guides an agent through an existing project's release process. It reus
 - Google Chrome for the browser authorization workflow, if CLI authentication is needed.
 - An agent environment that can read `SKILL.md`, run project commands, and keep an interactive CLI session alive. Browser automation requires a supported browser-control tool; otherwise, the user completes the device page manually.
 - The application's existing build tools and permission to publish to the intended repository.
+- Node.js and npm for npm distribution tasks; application-specific runtime requirements are determined from the project.
 
 ## Installation
 
@@ -47,6 +51,21 @@ For a first publication, also specify whether the new repository should be publi
 
 The agent inspects the project, verifies authentication, runs relevant checks, packages approved files, publishes the commit and tag, and verifies the downloadable release. If browser sign-in is required, the user completes identity checks and the final consent step.
 
+### Optional npm distribution
+
+Request npm distribution explicitly, including the package name and intended visibility:
+
+```text
+Use $windows-github-release to update this application's GitHub Release
+and publish its tested Windows package to npm as PACKAGE-NAME@1.2.0.
+The npm package should be public. Verify registry integrity, anonymous
+installation, the command-line entry point, and preservation of user data.
+```
+
+The [npm runbook](references/npm.md) covers package contents, TGZ validation, Chrome web login, publishing 2FA, recovery, and anonymous installation. GitHub and npm authentication are checked independently. Download-only requests use existing packages without signing in or publishing. Updating this skill alone does not authorize npm publication.
+
+The GitHub device-page helper is specific to GitHub. npm login and publishing use their own current CLI session links. If an application tarball is distributed through GitHub rather than the npm registry, the result is identified as a GitHub-hosted npm-installable package.
+
 ## Chrome helper
 
 Preview the detected Chrome executable and official device URL without opening a browser:
@@ -73,7 +92,7 @@ The helper accepts only `https://github.com/login/device`, without credentials, 
 
 Publishing requires an explicit user request. Preparing files or inspecting commands alone does not authorize an upload. Existing repository visibility and release assets are preserved unless a change is explicitly authorized.
 
-Packages exclude private application data, progress, backups, logs, keys, tokens, and unapproved installers. The workflow does not print access tokens, bypass browser security checks, force-push tags, or overwrite release assets by default.
+Packages exclude private application data, progress, backups, logs, keys, tokens, `.npmrc`, and unapproved installers. Persistent application data stays outside npm installation and cache directories. The workflow does not print access tokens, bypass browser security checks, force-push tags, or overwrite release assets by default.
 
 ## Repository layout
 
@@ -82,6 +101,7 @@ SKILL.md                          Agent instructions and workflow entry point
 agents/openai.yaml                Skill display metadata and default prompt
 references/device-auth.md         GitHub CLI and Chrome authorization runbook
 references/publish.md             Commit, tag, publish, and verification runbook
+references/npm.md                 npm packaging, web login, 2FA, and installation
 references/windows-app-example.md Generic Windows application release example
 scripts/open-github-device.ps1    Official device-page launcher
 CHANGELOG.md                      Version history
@@ -92,3 +112,6 @@ CHANGELOG.md                      Version history
 - [GitHub CLI authentication](https://cli.github.com/manual/gh_auth_login)
 - [GitHub CLI environment variables](https://cli.github.com/manual/gh_help_environment)
 - [GitHub OAuth device flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow)
+- [npm login](https://docs.npmjs.com/cli/v11/commands/npm-login/)
+- [npm publish](https://docs.npmjs.com/cli/v11/commands/npm-publish/)
+- [npm two-factor authentication](https://docs.npmjs.com/configuring-two-factor-authentication/)

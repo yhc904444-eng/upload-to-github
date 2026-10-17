@@ -22,3 +22,23 @@ This is an illustrative C# / WPF release workflow. All names, paths, commands, a
 6. Follow the [publication runbook](publish.md) and verify the remote release assets against the local package.
 
 An existing portable installation may contain a `UserData` directory. Publish from an explicit clean file list rather than compressing that installation. Do not infer a proxy address, GitHub account, repository visibility, local path, or current version from a previous release.
+
+## Optional npm packaging example
+
+If the user also requests npm distribution, read the [npm runbook](npm.md). The following layout illustrates an application package; it does not describe a published npm package:
+
+```text
+npm/package.json              Package metadata and explicit file list
+npm/bin/example-app.cjs        Command-line launcher
+npm/scripts/prepare.cjs        Copies approved application files
+npm/test/launcher.test.cjs     Existing launcher validation
+npm/app/                      Generated application payload
+```
+
+Inspect the real scripts before using commands such as `node npm/scripts/prepare.cjs`, `npm.cmd test --prefix npm`, and `npm.cmd pack ./npm --pack-destination release`. Set the Windows platform and Node.js requirements to match the actual package. Compare the application's own executable hash separately from the TGZ integrity hash.
+
+For an illustrative package named `example-app`, installation could use `npm.cmd install --global example-app@1.2.0 --registry=https://registry.npmjs.org`, with an `example-app.cmd` entry point. Treat those names and flags as placeholders until verified against the actual registry metadata and `bin` configuration. Inspect whether the real entry point provides version, integrity, help, or data-directory options before invoking them.
+
+Store persistent records in a stable user directory such as `%LOCALAPPDATA%\ExampleApp\UserData`, outside the npm installation and npx cache. Document how to reuse an older portable application's data directory without overwriting it. Verify isolated installation, actual startup, and retention of test data after uninstalling the test package.
+
+GitHub login does not authenticate npm. The user completes npm login and any separate publishing verification in the current Chrome session. Preserve existing application tags; an additional distribution tag, if needed, must be unused and point to the intended commit. Label a GitHub-hosted TGZ as an alternative installation source and report registry publication separately.

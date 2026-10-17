@@ -1,11 +1,11 @@
 ---
 name: windows-github-release
-description: Publish or update local Windows application source code and downloadable releases on GitHub. Use for first uploads, GitHub CLI web authentication, Chrome device-code entry, release creation, and verification of published assets. Reuse the project's existing build process; do not redevelop application features.
+description: Publish or update local Windows application source code and release assets on GitHub, and provide npm installation when requested. Use for GitHub CLI and Chrome device authorization, GitHub Releases, npm packaging, web login, 2FA, publishing, and anonymous installation checks. Reuse the project's existing build process.
 ---
 
-# Publish Windows Applications to GitHub
+# Publish Windows Applications to GitHub and npm
 
-Publish user-authorized source code, version tags, and downloadable application packages to the correct repository. Verify the remote result while preserving local user data and credentials.
+Publish user-authorized source code, version tags, and downloadable applications to the correct repository or npm package. Verify actual downloads and installation while preserving local user data and credentials.
 
 ## Establish the scope
 
@@ -15,7 +15,7 @@ Creating a skill, rehearsing a workflow, or inspecting commands does not authori
 
 ## Authentication and Chrome
 
-Read the [device authorization runbook](references/device-auth.md) first. Keep one live CLI authorization session, enter its current user code on an observed Chrome page, let the user complete identity verification and final consent, and verify authentication through the CLI and API.
+For GitHub login, read the [device authorization runbook](references/device-auth.md) first. Keep one live CLI authorization session, enter its current user code on an observed Chrome page, let the user complete identity verification and final consent, and verify authentication through the CLI and API.
 
 Use `scripts/open-github-device.ps1 -PlanOnly` to inspect the Chrome path and destination. Without that switch, it opens the official device page. It does not generate a code, enter a password, or establish that authorization succeeded. Read the available browser tool's runtime instructions before browser interaction. If browser control is unavailable, ask the user to enter the current code manually and continue work that does not depend on authentication.
 
@@ -32,6 +32,12 @@ Follow the [publication runbook](references/publish.md). Review and explicitly s
 Pass release notes through a UTF-8 file to preserve real newlines. After upload, read back the remote commit, resolved tag target, release status, and asset name, size, and digest. Compare the digest to the local SHA256. If the remote digest is unavailable, download the asset into an independent directory and compare hashes. Check relevant CI results if CI exists; otherwise report the actual local validation.
 
 Before retrying, query the remote state. A timeout does not prove that a write failed. On repeated execution, complete only missing steps. Preserve validated builds and packages when publication fails, and report the completed stage and specific blocker instead of retrying authentication or publishing indefinitely.
+
+## npm installation and distribution
+
+When the user requests npm download, installation, or publication, read the [npm packaging, authorization, and download runbook](references/npm.md). For download-only tasks, verify and install the existing package without signing in or publishing. For publication, prepare and test a specific TGZ first, then handle the separate npm account, Chrome web login, and any additional publishing verification. The GitHub device-page helper does not support npm session links.
+
+A GitHub-only publication or an update to this skill does not authorize npm publication. Verify a completed npm release through the official registry's version and integrity metadata, then anonymously install it in isolation and check its entry point and data persistence. Never overwrite an existing version. A GitHub-hosted TGZ can provide installation, but identify its source and registry publication status accurately.
 
 ## Deliver
 
