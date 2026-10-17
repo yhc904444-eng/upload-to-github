@@ -1,0 +1,19 @@
+# Local build and release outputs
+/dist/
+/release/
+/artifacts/
+*.zip
+
+# Local credentials and application data
+.env
+.env.*
+*.pem
+*.key
+UserData/
+*.log
+
+# Editor and operating system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
