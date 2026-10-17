@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 - 2026-10-17
+
+- Rename the skill to Upload to GitHub, with the identifier `upload-to-github`.
+- Update display metadata, invocation examples, repository links, and the release package folder.
+- Document migration from an earlier installation while preserving the GitHub and optional npm workflows.
+
 ## v1.1.0 - 2026-10-17
 
 - Add an npm distribution runbook for package manifests, TGZ preparation, and integrity checks.

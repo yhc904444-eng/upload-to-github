@@ -1,4 +1,4 @@
 interface:
-  display_name: "Windows GitHub and npm Release"
+  display_name: "Upload to GitHub"
   short_description: "Publish Windows apps to GitHub and npm; verify downloads"
-  default_prompt: "Use $windows-github-release to publish this Windows application to GitHub and provide npm installation, handle Chrome authorization, and verify the published releases and downloads."
+  default_prompt: "Use $upload-to-github to publish this Windows application to GitHub and provide npm installation, handle Chrome authorization, and verify the published releases and downloads."

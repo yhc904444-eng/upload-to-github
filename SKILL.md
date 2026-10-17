@@ -1,9 +1,9 @@
 ---
-name: windows-github-release
+name: upload-to-github
 description: Publish or update local Windows application source code and release assets on GitHub, and provide npm installation when requested. Use for GitHub CLI and Chrome device authorization, GitHub Releases, npm packaging, web login, 2FA, publishing, and anonymous installation checks. Reuse the project's existing build process.
 ---
 
-# Publish Windows Applications to GitHub and npm
+# Upload to GitHub
 
 Publish user-authorized source code, version tags, and downloadable applications to the correct repository or npm package. Verify actual downloads and installation while preserving local user data and credentials.
 

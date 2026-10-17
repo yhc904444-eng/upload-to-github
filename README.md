@@ -1,4 +1,4 @@
-# Windows GitHub Release
+# Upload to GitHub
 
 An agent skill for publishing Windows application source code and downloadable releases to GitHub, with optional npm distribution, Chrome authorization, careful packaging, and verification of downloads and installation.
 
@@ -27,22 +27,24 @@ The skill guides an agent through an existing project's release process. It reus
 
 ## Installation
 
-Download the skill ZIP from [Releases](https://github.com/yhc904444-eng/windows-github-release/releases), extract it, and place the `windows-github-release` folder in your agent's configured skills directory. The folder must contain `SKILL.md` directly.
+Download the skill ZIP from [Releases](https://github.com/yhc904444-eng/upload-to-github/releases), extract it, and place the `upload-to-github` folder in your agent's configured skills directory. The folder must contain `SKILL.md` directly.
 
 Alternatively, clone this repository and place the resulting folder in that directory:
 
 ```powershell
-git clone https://github.com/yhc904444-eng/windows-github-release.git
+git clone https://github.com/yhc904444-eng/upload-to-github.git
 ```
 
 Keep `SKILL.md`, `agents/`, `references/`, and `scripts/` together. Follow your agent host's instructions for discovering newly installed skills. Review any existing installation before replacing it.
+
+For an existing installation named `windows-github-release`, rename or replace that skill folder with `upload-to-github` and use `$upload-to-github` in prompts. Keep only one active installation. The GitHub and optional npm workflows are unchanged.
 
 ## Usage
 
 Invoke the installed skill with a concrete publishing request:
 
 ```text
-Use $windows-github-release to publish this Windows application to
+Use $upload-to-github to publish this Windows application to
 OWNER/REPOSITORY as v1.2.0. Use the existing build and packaging scripts,
 create a GitHub Release, and verify the uploaded ZIP against its local SHA256.
 ```
@@ -56,7 +58,7 @@ The agent inspects the project, verifies authentication, runs relevant checks, p
 Request npm distribution explicitly, including the package name and intended visibility:
 
 ```text
-Use $windows-github-release to update this application's GitHub Release
+Use $upload-to-github to update this application's GitHub Release
 and publish its tested Windows package to npm as PACKAGE-NAME@1.2.0.
 The npm package should be public. Verify registry integrity, anonymous
 installation, the command-line entry point, and preservation of user data.
