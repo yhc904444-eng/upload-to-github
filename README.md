@@ -27,6 +27,26 @@ The skill guides an agent through an existing project's release process. It reus
 
 ## Installation
 
+### Download with npm
+
+Install the skill files into a local npm project:
+
+```powershell
+npm.cmd install upload-to-github@1.2.0 --registry=https://registry.npmjs.org
+```
+
+The files are downloaded to `node_modules/upload-to-github`. Copy that folder into your agent's configured skills directory so that `SKILL.md` sits directly inside `upload-to-github`. npm downloads the files; skill discovery is managed by your agent host.
+
+To download a standalone tarball instead of installing it:
+
+```powershell
+npm.cmd pack upload-to-github@1.2.0 --registry=https://registry.npmjs.org
+```
+
+The npm package contains the English skill instructions, metadata, references, documentation, and PowerShell helper. It has no npm dependencies, command-line launcher, or installation scripts. Downloading it does not run the helper or change an existing skill installation.
+
+### Download from GitHub
+
 Download the skill ZIP from [Releases](https://github.com/yhc904444-eng/upload-to-github/releases), extract it, and place the `upload-to-github` folder in your agent's configured skills directory. The folder must contain `SKILL.md` directly.
 
 Alternatively, clone this repository and place the resulting folder in that directory:
@@ -107,6 +127,7 @@ references/npm.md                 npm packaging, web login, 2FA, and installatio
 references/windows-app-example.md Generic Windows application release example
 scripts/open-github-device.ps1    Official device-page launcher
 CHANGELOG.md                      Version history
+package.json                      npm metadata and explicit package file list
 ```
 
 ## References

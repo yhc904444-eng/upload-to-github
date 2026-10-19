@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.0 - 2026-10-19
+
+- Add a public npm package for downloading the English skill files.
+- Use an explicit file list with no dependencies or install scripts.
+- Document npm installation, tarball download, and copying the downloaded folder into an agent's skills directory.
+- Preserve the existing GitHub and optional npm publishing workflows.
+
 ## v1.1.1 - 2026-10-17
 
 - Rename the skill to Upload to GitHub, with the identifier `upload-to-github`.

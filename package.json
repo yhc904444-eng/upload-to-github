@@ -1,0 +1,38 @@
+{
+  "name": "upload-to-github",
+  "version": "1.2.0",
+  "description": "An agent skill for publishing Windows apps to GitHub, with optional npm distribution and verified release assets.",
+  "license": "UNLICENSED",
+  "keywords": [
+    "agent-skill",
+    "codex",
+    "windows",
+    "github",
+    "github-cli",
+    "npm",
+    "release"
+  ],
+  "homepage": "https://github.com/yhc904444-eng/upload-to-github#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yhc904444-eng/upload-to-github.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yhc904444-eng/upload-to-github/issues"
+  },
+  "files": [
+    "README.md",
+    "SKILL.md",
+    "CHANGELOG.md",
+    "agents/openai.yaml",
+    "references/device-auth.md",
+    "references/publish.md",
+    "references/npm.md",
+    "references/windows-app-example.md",
+    "scripts/open-github-device.ps1"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}
